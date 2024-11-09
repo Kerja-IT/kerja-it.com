@@ -2,10 +2,10 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const jobRouter = createTRPCRouter({
   getLatest: publicProcedure.query(async ({ ctx }) => {
-    const job = await ctx.db.job.findFirst({
+    const jobs = await ctx.db.job.findMany({
       orderBy: { createdAt: "desc" },
     });
 
-    return job ?? null;
+    return jobs ?? null;
   }),
 });

@@ -39,8 +39,8 @@ enum LocationType {
 }
 
 enum EmploymentType {
-    fulltime
-    parttime
+    full_time
+    part_time
     internship
     contract
 }
