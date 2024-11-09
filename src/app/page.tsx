@@ -6,7 +6,7 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <div className="mx-auto flex max-w-screen-lg flex-col">
+      <div className="mx-auto flex max-w-screen-lg flex-col px-4">
         <div className="mx-auto mt-8 flex max-w-screen-md flex-col gap-2 text-center">
           <h1 className="text-2xl font-black">
             Find Your Next Tech Opportunity in Malaysia
@@ -17,7 +17,7 @@ export default async function Home() {
           </p>
         </div>
       </div>
-      <main className="mx-auto mt-8 flex max-w-screen-lg flex-col gap-4">
+      <main className="mx-auto mt-8 flex max-w-screen-lg flex-col gap-4 px-4">
         {jobs.map((job) => (
           <div
             key={job.id}
