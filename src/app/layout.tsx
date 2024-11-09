@@ -6,7 +6,7 @@ import { type Metadata } from "next";
 import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
-  title: "Tech Jobs in Malaysia | Kerja IT",
+  title: "Your Gateway to Malaysia's Best Tech Jobs | Kerja IT",
   description: "",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
