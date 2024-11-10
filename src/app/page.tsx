@@ -1,7 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
 import {
   Pagination,
   PaginationContent,
@@ -12,28 +10,17 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { api, HydrateClient } from "@/trpc/server";
+import { getCurrencyRangeString } from "@/utils";
 
-import Footer from "./_components/footer";
-import { SalaryDisplay } from "./_components/salary-display";
+import { Footer } from "./_components/footer";
+import { NavBar } from "./_components/navbar";
 
 export default async function Home() {
-  const jobs = await api.job.getLatest();
+  const jobs = await api.job.getLatestJobs();
 
   return (
     <HydrateClient>
-      <nav className="mx-auto flex max-w-screen-xl items-center justify-between p-4">
-        <Link href="/" className="flex items-center space-x-2">
-          <Image
-            src="/logo.png"
-            alt="Kerja IT Logo"
-            width={300}
-            height={300}
-            className="h-10 w-10"
-          />
-          <p className="text-sm font-semibold">Kerja-IT.com</p>
-        </Link>
-        <Button variant="default">Post a Job – Free</Button>
-      </nav>
+      <NavBar />
       <div className="mx-auto flex max-w-screen-lg flex-col px-4">
         <div className="mx-auto mt-4 flex max-w-screen-md flex-col gap-2 text-center md:gap-4">
           <h1 className="text-2xl font-medium md:text-6xl">
@@ -51,7 +38,7 @@ export default async function Home() {
           </p>
         </div>
       </div>
-      <main className="mx-auto mt-8 flex max-w-screen-lg flex-col gap-4 px-4 md:mt-16">
+      <main className="mx-auto mt-8 flex max-w-screen-lg flex-col gap-2 px-4 md:mt-16">
         {[
           ...jobs,
           ...jobs,
@@ -64,9 +51,10 @@ export default async function Home() {
           ...jobs,
           ...jobs,
         ].map((job) => (
-          <div
+          <Link
+            href={`/jobs/${job.slug}`}
             key={job.id}
-            className="flex items-center justify-between rounded-lg border bg-white p-4"
+            className="group flex items-center justify-between rounded-lg border bg-white p-4 hover:border-black"
           >
             <div className="text-left">
               <p className="text-xs">{job.companyName}</p>
@@ -76,9 +64,9 @@ export default async function Home() {
               <p className="capitalize">
                 {job.employementType.replaceAll("_", " ")} / {job.locationType}
               </p>
-              <SalaryDisplay min={job.minSalary} max={job.maxSalary} />
+              <p>{getCurrencyRangeString(job.minSalary, job.maxSalary)}</p>
             </div>
-          </div>
+          </Link>
         ))}
         <div className="mt-4">
           <Pagination>

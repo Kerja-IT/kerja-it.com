@@ -78,7 +78,7 @@ const navigation = {
   ],
 };
 
-export default function Footer() {
+export function Footer() {
   return (
     <footer aria-labelledby="footer-heading" className="my-16">
       <h2 id="footer-heading" className="sr-only">

@@ -28,6 +28,8 @@ model Job {
     companyLogo        String?
     companyUrl         String?
     // 
+    slug               String
+    // 
     createdAt          DateTime       @default(now())
     updatedAt          DateTime       @updatedAt
 }
