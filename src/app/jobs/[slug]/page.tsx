@@ -31,7 +31,7 @@ export default function JobDescription({
           or{" "}
           <Link
             className="font-medium text-gray-700 underline hover:text-black"
-            href="/"
+            href="/post-a-job"
           >
             post a job
           </Link>{" "}

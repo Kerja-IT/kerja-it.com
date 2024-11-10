@@ -17,7 +17,9 @@ export function NavBar() {
         />
         <p className="text-sm font-semibold">Kerja-IT.com</p>
       </Link>
-      <Button variant="outline">Post a Job – Free</Button>
+      <Button variant="outline" asChild>
+        <Link href="/post-a-job">Post a Job – Free</Link>
+      </Button>
     </nav>
   );
 }
