@@ -1,6 +1,6 @@
 import React from "react";
 
-import { formatSalary } from "~/utils";
+import { formatSalary } from "@/utils";
 
 export function SalaryDisplay({
   min,

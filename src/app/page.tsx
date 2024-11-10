@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button } from "~/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Pagination,
   PaginationContent,
@@ -10,8 +10,8 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "~/components/ui/pagination";
-import { api, HydrateClient } from "~/trpc/server";
+} from "@/components/ui/pagination";
+import { api, HydrateClient } from "@/trpc/server";
 
 import Footer from "./_components/footer";
 import { SalaryDisplay } from "./_components/salary-display";

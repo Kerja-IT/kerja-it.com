@@ -1,5 +1,5 @@
-import { jobRouter } from "~/server/api/routers/job";
-import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
+import { jobRouter } from "@/server/api/routers/job";
+import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 
 /**
  * This is the primary router for your server.
