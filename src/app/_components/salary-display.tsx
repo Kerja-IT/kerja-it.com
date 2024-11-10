@@ -18,7 +18,7 @@ export function SalaryDisplay({
   }
 
   return (
-    <div className="flex items-center space-x-2 text-right">
+    <div className="flex items-center space-x-1 text-right">
       <p className="text-sm">{formatSalary(min)}</p>
       <span>-</span>
       <p className="text-sm">{formatSalary(max)}</p>
