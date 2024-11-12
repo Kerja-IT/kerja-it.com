@@ -13,19 +13,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 function JobOpeningForm() {
   const [parent] = useAutoAnimate();
 
   const [showSalary, setShowSalary] = useState("");
   return (
-    <div>
+    <div className="mb-32">
       <NavBar />
-      <main className="mx-auto flex w-full max-w-screen-lg flex-col px-4">
-        <h1 className="text-2xl font-medium">Job Advertisement Form</h1>
-        <div className="mt-8 flex flex-col gap-6">
-          <p className="text-lg font-medium">Job Details</p>
-          <div className="mb-32 flex max-w-sm flex-col gap-4" ref={parent}>
+      <main className="mx-auto flex w-full max-w-screen-sm flex-col px-4">
+        <h1 className="my-4 text-2xl font-medium md:mb-8 md:text-4xl">
+          Post Job Opening
+        </h1>
+        <div className="flex flex-col gap-2">
+          <p className="text-xl font-medium">Job Details</p>
+          <div className="flex flex-col gap-4" ref={parent}>
             <div className="space-y-2">
               <Label htmlFor="title">Title</Label>
               <Input id="title" placeholder="Software Engineer" />
@@ -216,6 +219,67 @@ function JobOpeningForm() {
               </Select>
             </div>
           </div>
+        </div>
+        <hr className="mb-8 mt-10" />
+        <div className="flex flex-col gap-2">
+          <p className="text-xl font-medium">Company Details</p>
+          <div className="flex flex-col gap-4" ref={parent}>
+            <div className="space-y-2">
+              <Label htmlFor="companyName">Name</Label>
+              <Input id="companyName" placeholder="Apple" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="companyWebsite">Website</Label>
+              <Input id="companyWebsite" placeholder="https://apple.com" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="companyLogo">Logo</Label>
+              <Input id="companyLogo" type="file" />
+            </div>
+          </div>
+        </div>
+        <hr className="mb-8 mt-10" />
+        <div className="flex flex-col gap-2">
+          <p className="text-xl font-medium">Application Details</p>
+          <div className="flex flex-col gap-4" ref={parent}>
+            <div className="space-y-2">
+              <Label htmlFor="applyUrl">URL</Label>
+              <Input
+                id="applyUrl"
+                placeholder="https://apple.com/jobs/software-engineer"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="applyEmail">Email</Label>
+              <Input id="applyEmail" placeholder="application@apple.com" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="applyPhone">Phone</Label>
+              <Input id="applyPhone" placeholder="6013 123 1234" />
+            </div>
+          </div>
+        </div>
+        <hr className="mb-8 mt-10" />
+        <div className="flex flex-col gap-2">
+          <p className="text-xl font-medium">Contact Details</p>
+          <div className="flex flex-col gap-4" ref={parent}>
+            <div className="space-y-2">
+              <Label htmlFor="contactName">Name</Label>
+              <Input id="contactName" placeholder="Timmy Cooked" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="contactEmail">Email</Label>
+              <Input id="contactEmail" placeholder="timmy@apple.com" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="contactPhone">Phone</Label>
+              <Input id="contactPhone" placeholder="6013 123 1234" />
+            </div>
+          </div>
+        </div>
+        <hr className="mb-8 mt-10" />
+        <div>
+          <Button className="">Submit job post</Button>
         </div>
       </main>
     </div>

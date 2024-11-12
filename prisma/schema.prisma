@@ -14,11 +14,14 @@ model Job {
     id                 String         @id @default(cuid())
     title              String
     description        String
-    applyUrl           String
     minSalary          Int?
     maxSalary          Int?
     minYearsExperience Int
     employementType    EmploymentType
+    // 
+    applyUrl           String?
+    applyEmail         String?
+    applyPhone         String?
     // 
     locationType       LocationType
     locationCity       String?
