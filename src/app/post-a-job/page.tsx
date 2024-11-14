@@ -40,7 +40,11 @@ function JobOpeningForm() {
           <div className="flex flex-col gap-4" ref={parent}>
             <div className="space-y-2">
               <Label htmlFor="title">Title</Label>
-              <Input id="title" placeholder="Software Engineer" />
+              <Input
+                className="w-full md:max-w-sm"
+                id="title"
+                placeholder="Software Engineer"
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="description">Description</Label>
@@ -69,7 +73,7 @@ function JobOpeningForm() {
                 value={showSalary}
                 onValueChange={(value) => setShowSalary(value)}
               >
-                <SelectTrigger>
+                <SelectTrigger className="w-full md:max-w-sm">
                   <SelectValue placeholder="Select salary display" />
                 </SelectTrigger>
                 <SelectContent>
@@ -90,7 +94,7 @@ function JobOpeningForm() {
                 <div className="relative">
                   <Input
                     id="salary"
-                    className="peer pe-12 ps-10"
+                    className="peer w-full pe-12 ps-10 md:max-w-sm"
                     placeholder="5,000"
                     onBeforeInput={(e) => {
                       const regex = /^[0-9]*$/;
@@ -118,7 +122,7 @@ function JobOpeningForm() {
                   <div className="relative">
                     <Input
                       id="min_salary"
-                      className="peer pe-12 ps-10"
+                      className="peer w-full pe-12 ps-10 md:max-w-sm"
                       placeholder="1,700"
                       onBeforeInput={(e) => {
                         const regex = /^[0-9]*$/;
@@ -143,7 +147,7 @@ function JobOpeningForm() {
                   <div className="relative">
                     <Input
                       id="max_salary"
-                      className="peer pe-12 ps-10"
+                      className="peer w-full pe-12 ps-10 md:max-w-sm"
                       placeholder="30,000"
                       onBeforeInput={(e) => {
                         const regex = /^[0-9]*$/;
@@ -168,7 +172,7 @@ function JobOpeningForm() {
             <div className="space-y-2">
               <Label htmlFor="employment_type">Employment Type</Label>
               <Select>
-                <SelectTrigger>
+                <SelectTrigger className="w-full md:max-w-sm">
                   <SelectValue placeholder="Select employment type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -182,7 +186,7 @@ function JobOpeningForm() {
             <div className="space-y-2">
               <Label htmlFor="location_type">Working Arrangements</Label>
               <Select>
-                <SelectTrigger>
+                <SelectTrigger className="w-full md:max-w-sm">
                   <SelectValue placeholder="Select working arrangements" />
                 </SelectTrigger>
                 <SelectContent>
@@ -194,12 +198,16 @@ function JobOpeningForm() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="city">City</Label>
-              <Input id="city" placeholder="Shah Alam" />
+              <Input
+                className="w-full md:max-w-sm"
+                id="city"
+                placeholder="Shah Alam"
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="state">State</Label>
               <Select>
-                <SelectTrigger>
+                <SelectTrigger className="w-full md:max-w-sm">
                   <SelectValue placeholder="Select state" />
                 </SelectTrigger>
                 <SelectContent>
@@ -225,7 +233,7 @@ function JobOpeningForm() {
             <div className="space-y-2">
               <Label htmlFor="min_experience">Min Working Experience</Label>
               <Select>
-                <SelectTrigger>
+                <SelectTrigger className="w-full md:max-w-sm">
                   <SelectValue placeholder="Select minimum years of experience" />
                 </SelectTrigger>
                 <SelectContent>
@@ -251,15 +259,27 @@ function JobOpeningForm() {
           <div className="flex flex-col gap-4" ref={parent}>
             <div className="space-y-2">
               <Label htmlFor="companyName">Name</Label>
-              <Input id="companyName" placeholder="Apple" />
+              <Input
+                className="w-full md:max-w-sm"
+                id="companyName"
+                placeholder="Apple"
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="companyWebsite">Website</Label>
-              <Input id="companyWebsite" placeholder="https://apple.com" />
+              <Input
+                className="w-full md:max-w-sm"
+                id="companyWebsite"
+                placeholder="https://apple.com"
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="companyLogo">Logo</Label>
-              <Input id="companyLogo" type="file" />
+              <Input
+                className="w-full md:max-w-sm"
+                id="companyLogo"
+                type="file"
+              />
             </div>
           </div>
         </div>
@@ -270,17 +290,26 @@ function JobOpeningForm() {
             <div className="space-y-2">
               <Label htmlFor="applyUrl">URL</Label>
               <Input
+                className="w-full md:max-w-sm"
                 id="applyUrl"
                 placeholder="https://apple.com/jobs/software-engineer"
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="applyEmail">Email</Label>
-              <Input id="applyEmail" placeholder="application@apple.com" />
+              <Input
+                className="w-full md:max-w-sm"
+                id="applyEmail"
+                placeholder="application@apple.com"
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="applyPhone">Phone</Label>
-              <Input id="applyPhone" placeholder="6013 123 1234" />
+              <Input
+                className="w-full md:max-w-sm"
+                id="applyPhone"
+                placeholder="6013 123 1234"
+              />
             </div>
           </div>
         </div>
@@ -290,15 +319,27 @@ function JobOpeningForm() {
           <div className="flex flex-col gap-4" ref={parent}>
             <div className="space-y-2">
               <Label htmlFor="contactName">Name</Label>
-              <Input id="contactName" placeholder="Timmy Cooked" />
+              <Input
+                className="w-full md:max-w-sm"
+                id="contactName"
+                placeholder="Timmy Cooked"
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="contactEmail">Email</Label>
-              <Input id="contactEmail" placeholder="timmy@apple.com" />
+              <Input
+                className="w-full md:max-w-sm"
+                id="contactEmail"
+                placeholder="timmy@apple.com"
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="contactPhone">Phone</Label>
-              <Input id="contactPhone" placeholder="6013 123 1234" />
+              <Input
+                className="w-full md:max-w-sm"
+                id="contactPhone"
+                placeholder="6013 123 1234"
+              />
             </div>
           </div>
         </div>
