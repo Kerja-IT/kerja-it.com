@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { UserButton } from "@clerk/nextjs";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useLocalState } from "@/hooks/use-local-state";
 
 const initialDescription =
   "**Formatting**\n- **Bold**\n- *Italic*\n- ***Bold & Italic***\n\n<br/>\n\n**About Us**\nThis is a long paragraph explaining your company, what are we trying to do, why join us, and how long our company has operated. You can also share something about the project that the candidates will be working on once they join.\n\n<br/>\n\n**Key Responsibility**\n- Responsibility 1\n- Responsibility 2\n- Responsibility 3\n- Responsibility 4\n\n<br/>\n\n**Requirements**\n- Bulleted list 1\n- Bulleted list 2\n- Bulleted list 3\n\n<br/>\n\n**Interview Process**\n1. Numbered list 1\n2. Numbered list 2";
@@ -44,16 +45,7 @@ const initialForm = {
 function JobOpeningForm() {
   const [parent] = useAutoAnimate();
 
-  const [form, setForm] = useState(() => {
-    const localFormValue = localStorage.getItem("form");
-    return localFormValue
-      ? (JSON.parse(localFormValue) as typeof initialForm)
-      : initialForm;
-  });
-
-  useEffect(() => {
-    localStorage.setItem("form", JSON.stringify(form));
-  }, [form]);
+  const [form, setForm, resetForm] = useLocalState(initialForm, "job-opening");
 
   return (
     <main className="mx-auto mb-32 flex w-full max-w-screen-lg flex-col px-4">
@@ -420,8 +412,7 @@ function JobOpeningForm() {
         <Button
           variant="ghost"
           onClick={() => {
-            localStorage.setItem("form", JSON.stringify(initialForm));
-            setForm(initialForm);
+            resetForm();
             window.scrollTo(0, 0);
           }}
         >
