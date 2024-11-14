@@ -1,11 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 
-import { NavBar } from "../_components/navbar";
-import { Label } from "@/components/ui/label";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkBreaks from "remark-breaks";
+
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -13,16 +16,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { NavBar } from "../_components/navbar";
+
+const initialDescription =
+  "**Formatting**\n- **Bold**\n- *Italic*\n- ***Bold & Italic***\n\n<br/>\n\n**About Us**\nThis is a long paragraph explaining your company, what are we trying to do, why join us, and how long our company has operated. You can also share something about the project that the candidates will be working on once they join.\n\n<br/>\n\n**Key Responsibility**\n- Responsibility 1\n- Responsibility 2\n- Responsibility 3\n- Responsibility 4\n\n<br/>\n\n**Requirements**\n- Bulleted list 1\n- Bulleted list 2\n- Bulleted list 3\n\n<br/>\n\n**Interview Process**\n1. Numbered list 1\n2. Numbered list 2";
 
 function JobOpeningForm() {
   const [parent] = useAutoAnimate();
 
   const [showSalary, setShowSalary] = useState("");
+  const [description, setDescription] = useState(initialDescription);
+
   return (
     <div className="mb-32">
       <NavBar />
-      <main className="mx-auto flex w-full max-w-screen-sm flex-col px-4">
+      <main className="mx-auto flex w-full max-w-screen-lg flex-col px-4">
         <h1 className="my-4 text-2xl font-medium md:mb-8 md:text-4xl">
           Post Job Opening
         </h1>
@@ -35,7 +44,23 @@ function JobOpeningForm() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="description">Description</Label>
-              <Textarea id="description" placeholder="Software Engineer" />
+
+              <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                <Textarea
+                  id="description"
+                  className="min-h-[680px] focus-visible:outline-none focus-visible:ring-0"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <Markdown
+                  remarkPlugins={[remarkBreaks]}
+                  rehypePlugins={[rehypeRaw]}
+                  className="rounded-md border p-4"
+                  skipHtml
+                >
+                  {description}
+                </Markdown>
+              </div>
             </div>
 
             <div className="space-y-2">

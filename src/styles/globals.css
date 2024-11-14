@@ -63,4 +63,12 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  ul > li {
+    @apply list-inside list-disc;
+  }
+
+  ol > li {
+    @apply list-inside list-decimal;
+  }
 }
