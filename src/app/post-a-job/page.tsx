@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { UserButton } from "@clerk/nextjs";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -22,11 +22,38 @@ import { Textarea } from "@/components/ui/textarea";
 const initialDescription =
   "**Formatting**\n- **Bold**\n- *Italic*\n- ***Bold & Italic***\n\n<br/>\n\n**About Us**\nThis is a long paragraph explaining your company, what are we trying to do, why join us, and how long our company has operated. You can also share something about the project that the candidates will be working on once they join.\n\n<br/>\n\n**Key Responsibility**\n- Responsibility 1\n- Responsibility 2\n- Responsibility 3\n- Responsibility 4\n\n<br/>\n\n**Requirements**\n- Bulleted list 1\n- Bulleted list 2\n- Bulleted list 3\n\n<br/>\n\n**Interview Process**\n1. Numbered list 1\n2. Numbered list 2";
 
+const initialForm = {
+  title: "",
+  description: initialDescription,
+  salaryDisplay: "",
+  minSalary: "",
+  maxSalary: "",
+  employmentType: "",
+  workMode: "",
+  locationCity: "",
+  locationState: "",
+  minYearsOfExperience: "",
+  companyName: "",
+  companyUrl: "",
+  companyLogo: "",
+  applyUrl: "",
+  applyEmail: "",
+  applyPhone: "",
+};
+
 function JobOpeningForm() {
   const [parent] = useAutoAnimate();
 
-  const [showSalary, setShowSalary] = useState("");
-  const [description, setDescription] = useState(initialDescription);
+  const [form, setForm] = useState(() => {
+    const localFormValue = window.localStorage.getItem("form");
+    return localFormValue
+      ? (JSON.parse(localFormValue) as typeof initialForm)
+      : initialForm;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("form", JSON.stringify(form));
+  }, [form]);
 
   return (
     <main className="mx-auto mb-32 flex w-full max-w-screen-lg flex-col px-4">
@@ -49,9 +76,11 @@ function JobOpeningForm() {
           <div className="space-y-2">
             <Label htmlFor="title">Title</Label>
             <Input
-              className="w-full md:max-w-sm"
               id="title"
+              className="w-full md:max-w-sm"
               placeholder="Software Engineer"
+              value={form.title}
+              onChange={(e) => setForm({ ...form, title: e.target.value })}
             />
           </div>
           <div className="space-y-2">
@@ -61,8 +90,10 @@ function JobOpeningForm() {
               <Textarea
                 id="description"
                 className="min-h-[680px] focus-visible:outline-none focus-visible:ring-0"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={form.description}
+                onChange={(e) =>
+                  setForm({ ...form, description: e.target.value })
+                }
               />
               <Markdown
                 remarkPlugins={[remarkBreaks]}
@@ -70,7 +101,7 @@ function JobOpeningForm() {
                 className="rounded-md border p-4"
                 skipHtml
               >
-                {description}
+                {form.description}
               </Markdown>
             </div>
           </div>
@@ -78,8 +109,15 @@ function JobOpeningForm() {
           <div className="space-y-2">
             <Label htmlFor="employment_type">Salary Display</Label>
             <Select
-              value={showSalary}
-              onValueChange={(value) => setShowSalary(value)}
+              value={form.salaryDisplay}
+              onValueChange={(value) =>
+                setForm({
+                  ...form,
+                  salaryDisplay: value,
+                  minSalary: "",
+                  maxSalary: "",
+                })
+              }
             >
               <SelectTrigger className="w-full md:max-w-sm">
                 <SelectValue placeholder="Select salary display" />
@@ -96,7 +134,7 @@ function JobOpeningForm() {
             </p>
           </div>
 
-          {showSalary === "exact" && (
+          {form.salaryDisplay === "exact" && (
             <div className="space-y-2">
               <Label htmlFor="salary">Salary</Label>
               <div className="relative">
@@ -110,6 +148,14 @@ function JobOpeningForm() {
                       e.preventDefault();
                     }
                   }}
+                  value={form.minSalary}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      minSalary: e.target.value,
+                      maxSalary: e.target.value,
+                    })
+                  }
                 />
                 <span className="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">
                   RM
@@ -121,7 +167,7 @@ function JobOpeningForm() {
             </div>
           )}
 
-          {showSalary === "range" && (
+          {form.salaryDisplay === "range" && (
             <div className="flex flex-col gap-2">
               <div className="space-y-2">
                 <Label htmlFor="min_salary">Minimum Salary</Label>
@@ -138,6 +184,13 @@ function JobOpeningForm() {
                         e.preventDefault();
                       }
                     }}
+                    value={form.minSalary}
+                    onChange={(e) =>
+                      setForm({
+                        ...form,
+                        minSalary: e.target.value,
+                      })
+                    }
                   />
                   <span className="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">
                     RM
@@ -163,6 +216,13 @@ function JobOpeningForm() {
                         e.preventDefault();
                       }
                     }}
+                    value={form.maxSalary}
+                    onChange={(e) =>
+                      setForm({
+                        ...form,
+                        maxSalary: e.target.value,
+                      })
+                    }
                   />
                   <span className="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">
                     RM
@@ -177,7 +237,12 @@ function JobOpeningForm() {
 
           <div className="space-y-2">
             <Label htmlFor="employment_type">Employment Type</Label>
-            <Select>
+            <Select
+              value={form.employmentType}
+              onValueChange={(value) =>
+                setForm({ ...form, employmentType: value })
+              }
+            >
               <SelectTrigger className="w-full md:max-w-sm">
                 <SelectValue placeholder="Select employment type" />
               </SelectTrigger>
@@ -191,7 +256,12 @@ function JobOpeningForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="location_type">Working Arrangements</Label>
-            <Select>
+            <Select
+              value={form.workMode}
+              onValueChange={(value) =>
+                setForm({ ...form, employmentType: value })
+              }
+            >
               <SelectTrigger className="w-full md:max-w-sm">
                 <SelectValue placeholder="Select working arrangements" />
               </SelectTrigger>
@@ -205,14 +275,23 @@ function JobOpeningForm() {
           <div className="space-y-2">
             <Label htmlFor="city">City</Label>
             <Input
-              className="w-full md:max-w-sm"
               id="city"
+              className="w-full md:max-w-sm"
               placeholder="Shah Alam"
+              value={form.locationCity}
+              onChange={(e) =>
+                setForm({ ...form, locationCity: e.target.value })
+              }
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="state">State</Label>
-            <Select>
+            <Select
+              value={form.locationState}
+              onValueChange={(value) =>
+                setForm({ ...form, locationState: value })
+              }
+            >
               <SelectTrigger className="w-full md:max-w-sm">
                 <SelectValue placeholder="Select state" />
               </SelectTrigger>
@@ -238,7 +317,10 @@ function JobOpeningForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="min_experience">Min Working Experience</Label>
-            <Select>
+            <Select
+              value={form.minSalary}
+              onValueChange={(value) => setForm({ ...form, minSalary: value })}
+            >
               <SelectTrigger className="w-full md:max-w-sm">
                 <SelectValue placeholder="Select minimum years of experience" />
               </SelectTrigger>
@@ -266,17 +348,23 @@ function JobOpeningForm() {
           <div className="space-y-2">
             <Label htmlFor="companyName">Name</Label>
             <Input
-              className="w-full md:max-w-sm"
               id="companyName"
+              className="w-full md:max-w-sm"
               placeholder="Apple"
+              value={form.companyName}
+              onChange={(e) =>
+                setForm({ ...form, companyName: e.target.value })
+              }
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="companyWebsite">Website</Label>
             <Input
-              className="w-full md:max-w-sm"
               id="companyWebsite"
+              className="w-full md:max-w-sm"
               placeholder="https://apple.com"
+              value={form.companyUrl}
+              onChange={(e) => setForm({ ...form, companyUrl: e.target.value })}
             />
           </div>
           <div className="space-y-2">
@@ -296,62 +384,49 @@ function JobOpeningForm() {
           <div className="space-y-2">
             <Label htmlFor="applyUrl">URL</Label>
             <Input
-              className="w-full md:max-w-sm"
               id="applyUrl"
+              className="w-full md:max-w-sm"
               placeholder="https://apple.com/jobs/software-engineer"
+              value={form.applyUrl}
+              onChange={(e) => setForm({ ...form, applyUrl: e.target.value })}
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="applyEmail">Email</Label>
             <Input
-              className="w-full md:max-w-sm"
               id="applyEmail"
+              className="w-full md:max-w-sm"
               placeholder="application@apple.com"
+              type="email"
+              value={form.applyEmail}
+              onChange={(e) => setForm({ ...form, applyEmail: e.target.value })}
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="applyPhone">Phone</Label>
             <Input
-              className="w-full md:max-w-sm"
               id="applyPhone"
+              className="w-full md:max-w-sm"
               placeholder="6013 123 1234"
+              value={form.applyPhone}
+              onChange={(e) => setForm({ ...form, applyPhone: e.target.value })}
             />
           </div>
         </div>
       </div>
       <hr className="mb-8 mt-10" />
-      <div className="flex flex-col gap-2">
-        <p className="text-xl font-medium">Contact Details</p>
-        <div className="flex flex-col gap-4" ref={parent}>
-          <div className="space-y-2">
-            <Label htmlFor="contactName">Name</Label>
-            <Input
-              className="w-full md:max-w-sm"
-              id="contactName"
-              placeholder="Timmy Cooked"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="contactEmail">Email</Label>
-            <Input
-              className="w-full md:max-w-sm"
-              id="contactEmail"
-              placeholder="timmy@apple.com"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="contactPhone">Phone</Label>
-            <Input
-              className="w-full md:max-w-sm"
-              id="contactPhone"
-              placeholder="6013 123 1234"
-            />
-          </div>
-        </div>
-      </div>
-      <hr className="mb-8 mt-10" />
-      <div>
+      <div className="flex items-center gap-2">
         <Button className="">Submit job post</Button>
+        <Button
+          variant="ghost"
+          onClick={() => {
+            localStorage.setItem("form", JSON.stringify(initialForm));
+            setForm(initialForm);
+            window.scrollTo(0, 0);
+          }}
+        >
+          Reset form
+        </Button>
       </div>
     </main>
   );
