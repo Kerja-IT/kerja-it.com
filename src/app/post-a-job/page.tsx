@@ -45,7 +45,7 @@ function JobOpeningForm() {
   const [parent] = useAutoAnimate();
 
   const [form, setForm] = useState(() => {
-    const localFormValue = window.localStorage.getItem("form");
+    const localFormValue = localStorage.getItem("form");
     return localFormValue
       ? (JSON.parse(localFormValue) as typeof initialForm)
       : initialForm;
